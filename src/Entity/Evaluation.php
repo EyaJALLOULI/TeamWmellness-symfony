@@ -24,7 +24,6 @@ class Evaluation
 
     #[ORM\OneToMany(mappedBy: 'evaluation', targetEntity: Reponses::class)]
     private Collection $Reponses;
-    
 
     public function __construct()
     {
@@ -35,7 +34,6 @@ class Evaluation
     {
         return $this->id;
     }
-    
 
     public function getMoyenne(): ?int
     {

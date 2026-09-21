@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\Evaluation;
+
 use App\Entity\Collaborateur;
 use App\Form\CollaborateurType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,14 +14,9 @@ class CollaborateurController extends AbstractController
     /**
      * @Route("/collaborateur/nouveau", name="collaborateur_nouveau", methods={"GET", "POST"})
      */
-    #[Route('/user', name: 'userform', methods: ['GET', 'POST'])]
-    public function nouveau(Request $request, EntityManagerInterface $entityManager,): Response
-    {// Création ou récupération de l'évaluation pour ce collaborateur
-       
-
-   
-            
-        
+    #[Route('/user', name: 'userform')]
+    public function nouveau(Request $request): Response
+    {
         $collaborateur = new Collaborateur();
         $form = $this->createForm(CollaborateurType::class, $collaborateur);
         $form->handleRequest($request);
@@ -38,15 +32,6 @@ class CollaborateurController extends AbstractController
             }
 
             try {
-                // Création ou récupération de l'évaluation pour ce collaborateur
-                $evaluation = new Evaluation();
-                $evaluation->setMoyenne(0); // Initialisation à 0
-                $evaluation->setInterpretation("Interprétation indéfinie");
-                
-                // Associer l'évaluation au collaborateur
-                $collaborateur->setEvaluation($evaluation);
-                $entityManager->persist($evaluation);
-
                 $entityManager->persist($collaborateur);
                 $entityManager->flush();
 
@@ -54,7 +39,7 @@ class CollaborateurController extends AbstractController
                 [$localPart] = explode('@', $collaborateur->getEmail());
                 [$prenom, $nom] = explode('.', $localPart);
 
-                 // Capitaliser la première lettre du prénom et du nom
+                // Capitaliser la première lettre du prénom et du nom
 $prenom = ucfirst(strtolower($prenom));
 $nom = ucfirst(strtolower($nom));
 
@@ -71,11 +56,7 @@ return $this->redirectToRoute('home');
 
         return $this->render('home/user.html.twig', [
             'form' => $form->createView(),
-            'collaborateur' => $collaborateur,
-         
         ]);
     }
-    
-    
     
 }

@@ -60,9 +60,9 @@
             height: 50%;
             max-height: 800px;
             position: fixed;
-            top: 45%; /* Ajusté pour déplacer vers le haut */
-            right: 5%; /* Ajusté pour aligner à droite */
-            transform: translateY(-50%); /* Ajustement vertical */
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -91,8 +91,8 @@
         /* Styles pour l'image en dehors du rectangle */
         #mind2Image {
             position: fixed;
-            top: 22%; /* Ajuster la position verticale */
-            left: 5%; /* Ajuster la position horizontale pour être à gauche */
+            top: 27%; /* Ajuster la position verticale */
+            left: 10%; /* Ajuster la position horizontale */
             width: 500px; /* Ajuster la largeur de l'image */
             height: auto; /* Garder le ratio de l'image */
         }
@@ -149,36 +149,29 @@
             {{ form_errors(form.email) }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Valider</button>
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Valider</button>
+        </div>
         {{ form_end(form) }}
-    
+
         <div id="questionnaireSection" style="display: none;">
             <!-- Section du questionnaire à remplir -->
-            
         </div>
+    </div> <!-- Fin de form-container -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const successMessage = document.getElementById('successMessage');
             const startQuestionnaireButton = document.getElementById('startQuestionnaire');
 
-            if (successMessage && startQuestionnaireButton) {
+            if (successMessage) {
                 successMessage.style.display = 'block'; // Afficher le message de bienvenue
 
                 startQuestionnaireButton.addEventListener('click', function() {
                     // Cacher le message de bienvenue et afficher la section du questionnaire
                     successMessage.style.display = 'none';
                     document.getElementById('questionnaireSection').style.display = 'block';
-
-                    // Vérifier si collaborateur.id est défini avant de rediriger
-                    {% if collaborateur.id is defined and collaborateur.id %}
-                        const url = "{{ path('questionnair', { 'id': collaborateur.id }) }}";
-                        window.location.href = url;
-                    {% else %}
-                        console.error('collaborateur.id is not defined or empty.');
-                        // Handle the situation where collaborateur.id is not set
-                        // You may want to display an error message or handle this case differently
-                    {% endif %}
+                    window.location.href = "{{ path('questionnaire') }}"; // Redirection vers la page questionnaire
                 });
             }
         });

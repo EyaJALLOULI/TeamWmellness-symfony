@@ -20,23 +20,6 @@ class QuestionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Question::class);
     }
-    public function findAllQuestions(): array
-    {
-        return $this->createQueryBuilder('q')
-            ->orderBy('q.id', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-    public function findNextQuestion(int $currentQuestionId): ?Question
-    {
-        return $this->createQueryBuilder('q')
-            ->where('q.id > :currentQuestionId')
-            ->setParameter('currentQuestionId', $currentQuestionId)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
 
 //    /**
 //     * @return Question[] Returns an array of Question objects

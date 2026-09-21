@@ -15,7 +15,6 @@ class Reponses
 
     #[ORM\Column]
     private ?int $scorereponse = null;
-    
 
     #[ORM\ManyToOne(inversedBy: 'Reponses')]
     #[ORM\JoinColumn(nullable: false)]
@@ -26,7 +25,7 @@ class Reponses
     private ?Question $question = null;
 
     #[ORM\ManyToOne(inversedBy: 'Reponses')]
-   
+    #[ORM\JoinColumn(nullable: false)]
     private ?Evaluation $evaluation = null;
 
     public function getId(): ?int
