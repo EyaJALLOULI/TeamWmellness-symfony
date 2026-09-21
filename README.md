@@ -4,6 +4,8 @@
 
 **Application web dédiée au bien-être des collaborateurs en entreprise.**
 
+</div>
+
 ---
 
 ## 🔎 Aperçu
@@ -40,5 +42,3 @@ teamwellness/
 ```
 
 ---
-
-
